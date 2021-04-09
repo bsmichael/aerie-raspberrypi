@@ -72,9 +72,14 @@ public class PropertyKeyConstants {
     public static final String JOTFORM_MEMBER_RENEWAL_FORM_ID_KEY = "jotform.member-renewal-form-id";
 
     /**
-     * SLACK_TOKEN_KEY.
+     * MEMBERSHIP_SLACK_TOKEN_KEY.
      */
-    public static final String SLACK_TOKEN_KEY = "slack.token";
+    public static final String MEMBERSHIP_SLACK_TOKEN_KEY = "slack.membership.token";
+
+    /**
+     * PICTURES_SLACK_TOKEN_KEY.
+     */
+    public static final String PICTURES_SLACK_TOKEN_KEY = "slack.pictures.token";
 
     /**
      * ROSTER_USER.

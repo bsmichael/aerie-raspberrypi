@@ -29,6 +29,7 @@ import org.eaa690.aerie.model.RateLimitRepository;
 import org.eaa690.aerie.model.WeatherProductRepository;
 import org.eaa690.aerie.service.JotFormService;
 import org.eaa690.aerie.service.MailChimpService;
+import org.eaa690.aerie.service.PictureService;
 import org.eaa690.aerie.service.PropertyService;
 import org.eaa690.aerie.service.RosterService;
 import org.eaa690.aerie.service.SlackService;
@@ -198,16 +199,35 @@ public class ServiceConfig {
     }
 
     /**
-     * SlackSession.
+     * Membership Bot SlackSession.
      *
      * @return SlackSession
      */
-    @Bean
+    @Bean(name="membership")
     public SlackSession slackSession(final PropertyService propertyService, final SlackService slackService) {
         try {
             final SlackSession slackSession = SlackSessionFactory
                     .createWebSocketSlackSession(
-                            propertyService.get(PropertyKeyConstants.SLACK_TOKEN_KEY).getValue());
+                            propertyService.get(PropertyKeyConstants.MEMBERSHIP_SLACK_TOKEN_KEY).getValue());
+            slackSession.connect();
+            slackSession.addMessagePostedListener(slackService);
+            return slackSession;
+        } catch (IOException | ResourceNotFoundException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Pictures Bot SlackSession.
+     *
+     * @return SlackSession
+     */
+    @Bean(name="pictures")
+    public SlackSession slackSession(final PropertyService propertyService, final PictureService slackService) {
+        try {
+            final SlackSession slackSession = SlackSessionFactory
+                    .createWebSocketSlackSession(
+                            propertyService.get(PropertyKeyConstants.PICTURES_SLACK_TOKEN_KEY).getValue());
             slackSession.connect();
             slackSession.addMessagePostedListener(slackService);
             return slackSession;
