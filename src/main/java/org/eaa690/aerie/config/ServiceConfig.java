@@ -19,6 +19,7 @@ package org.eaa690.aerie.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.alexanderwe.bananaj.connection.MailChimpConnection;
 import com.sendgrid.SendGrid;
+import com.starfireaviation.rostermanagement.RosterManager;
 import com.twilio.Twilio;
 import com.ullink.slack.simpleslackapi.SlackSession;
 import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory;
@@ -247,6 +248,5 @@ public class ServiceConfig {
         } catch (ResourceNotFoundException e) {
             return null;
         }
-        return null;
     }
 }

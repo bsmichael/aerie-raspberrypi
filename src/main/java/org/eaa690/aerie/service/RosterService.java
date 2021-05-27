@@ -18,6 +18,7 @@ package org.eaa690.aerie.service;
 
 import com.starfireaviation.rostermanagement.RosterManager;
 import com.starfireaviation.rostermanagement.model.MemberType;
+import com.starfireaviation.rostermanagement.model.Person;
 import com.starfireaviation.rostermanagement.model.Status;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -177,16 +178,16 @@ public class RosterService {
     @Scheduled(cron = "0 0 0,6,12,18 * * *")
     public void update() {
         try {
-            final List<Member> members = rosterManager.getAllEntries();
-            for (Member member : members) {
+            final List<Person> people = rosterManager.getAllEntries();
+            for (Person person : people) {
                 memberRepository
-                        .findByRosterId(member.getRosterId())
-                        .ifPresent(value -> member.setId(value.getId()));
-                if (member.getCreatedAt() == null) {
-                    member.setCreatedAt(new Date());
+                        .findByRosterId(person.getRosterId())
+                        .ifPresent(value -> person.setId(value.getId()));
+                if (person.getCreatedAt() == null) {
+                    person.setCreatedAt(new Date());
                 }
-                member.setUpdatedAt(new Date());
-                memberRepository.save(member);
+                person.setUpdatedAt(new Date());
+                memberRepository.save(person);
             }
         } catch (ResourceNotFoundException e) {
             LOGGER.error(e.getMessage(), e);
@@ -304,7 +305,7 @@ public class RosterService {
      */
     public Member saveNewMember(final Member member) throws ResourceExistsException {
         LOGGER.info("Saving new member: " + member);
-        rosterManager.createEntry(member);
+        rosterManager.createEntry(person);
         return member;
     }
 
@@ -315,7 +316,7 @@ public class RosterService {
      */
     public Member saveRenewingMember(final Member member) {
         LOGGER.info("Saving renewing member: " + member);
-        rosterManager.updateEntry(member);
+        rosterManager.updateEntry(person);
         return member;
     }
 
