@@ -231,4 +231,22 @@ public class ServiceConfig {
         }
         return null;
     }
+
+    /**
+     * Initialize RosterManager.
+     *
+     * @param propertyService PropertyService
+     * @return RosterManager
+     */
+    @Bean
+    public RosterManager rosterManager(final PropertyService propertyService) {
+        try {
+            return new RosterManager(
+                    propertyService.get(PropertyKeyConstants.ROSTER_USER_KEY).getValue(),
+                    propertyService.get(PropertyKeyConstants.ROSTER_PASS_KEY).getValue());
+        } catch (ResourceNotFoundException e) {
+            return null;
+        }
+        return null;
+    }
 }

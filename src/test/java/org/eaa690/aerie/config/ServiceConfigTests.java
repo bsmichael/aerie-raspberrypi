@@ -74,6 +74,12 @@ public class ServiceConfigTests {
     private SSLUtilities sslUtilities;
 
     /**
+     * RosterManager.
+     */
+    @Mock
+    private RosterManager rosterManager;
+
+    /**
      * ServiceConfig.
      */
     private ServiceConfig serviceConfig;
@@ -121,6 +127,14 @@ public class ServiceConfigTests {
     @Test
     public void sslUtilities() {
         Assert.assertNotNull(serviceConfig.sslUtilities());
+    }
+
+    /**
+     * Test loading of RosterManager bean.
+     */
+    @Test
+    public void rosterManager() {
+        Assert.assertNotNull(serviceConfig.rosterManager(propertyService));
     }
 
 }
